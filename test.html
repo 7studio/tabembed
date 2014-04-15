@@ -25,8 +25,12 @@ html {
   display: block;
   padding: .75em 1.5em;
   color: #fff;
-  background-color: #34495e;
   text-decoration: none;
+  background-color: #34495e;
+  box-shadow: 0 2px 0 rgba(255, 255, 255, 0);
+
+  transition-property: background-color, box-shadow;
+  transition-duration: .5s, .5s;
 }
 #TabEmbed1 .TabEmbed-tab a:hover,
 #TabEmbed1 .TabEmbed-tab a:focus {
@@ -40,8 +44,46 @@ html {
 #TabEmbed1 .TabEmbed-tab[data-selected] a {
   color: #34495e;
   background-color: #fff;
-  box-shadow: 0 2px 0 #fff;
+  box-shadow: 0 2px 0 rgba(255, 255, 255, 1);
   cursor: default;
+}
+
+
+
+@-webkit-keyframes TabEmbed1InOut {
+      0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes TabEmbed1InOut {
+      0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+#TabEmbed1::before {
+  display: none;
+  visibility: hidden;
+
+  content: '{"animation":{"name":"TabEmbed1InOut"}}';
+}
+#TabEmbed1 .TabEmbed-tabpanel {
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+}
+#TabEmbed1 .TabEmbed-tabpanel[data-animation] {
+  -webkit-animation-name: TabEmbed1InOut;
+          animation-name: TabEmbed1InOut;
+
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+}
+#TabEmbed1 .TabEmbed-tabpanel[data-animation="in"]  {
+  -webkit-animation-direction: normal;
+          animation-direction: normal;
+}
+#TabEmbed1 .TabEmbed-tabpanel[data-animation="out"] {
+  -webkit-animation-direction: reverse;
+          animation-direction: reverse;
 }
 </style>
 
@@ -70,18 +112,26 @@ html {
     <div class="TabEmbed-tabpanel"
          id="tab1.1"
     >
+    	<p>#1</p>
         <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
     </div>
     <div class="TabEmbed-tabpanel"
          id="tab1.2"
          data-hidden
     >
+    	<p>#2</p>
         <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
     </div>
     <div class="TabEmbed-tabpanel"
          id="tab1.3"
          data-hidden
     >
+    	<p>#3</p>
         <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
     </div>
 </div>
+
+<script src="flex-embed.js"></script>
+<script>
+	var t = new TabEmbed('#TabEmbed1');
+</script>
