@@ -15,6 +15,12 @@ All options are optional and set up with usable defaults. Change them according 
 
 Default value is false.
 
+### `hashchange`
+
+`Boolean` it indicates if the component takes into account the window's hash changes and should use the History object when the elements are changing.
+
+Default value is false.
+
 ## JavaScript API
 
 ### `new TabEmbed(element[, options])`
@@ -55,7 +61,7 @@ t.elements;
 
 ### `selectedIndex`
 
-The index of the selected element. **Read only**.
+The index of the selected element.  **Read only**.
 
 The value `-1` is returned if no element is selected.
 
@@ -66,17 +72,15 @@ t.selectedIndex;
 // -> 1
 ```
 
-### `selectedElement`
+### `selectedElements`
 
-The selected element. **Read only**.
-
-The value `null` is returned if no element is selected.
+The set of elemets that are selected. **Read only**.
 
 ```js
 var t = new TabEmbed("#Product-TabEmbed");
 
-t.selectedElement;
-// -> { … }
+t.selectedElements;
+// -> [ … ]
 ```
 
 ### `element(index)`
