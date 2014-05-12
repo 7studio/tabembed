@@ -1,4 +1,22 @@
 /**
+ * Provide an handy solution to interact with the component using JSON.
+ * This selector (and its declaration block) basically doesn't do anything,
+ * except that you can check for it in Javascript.
+ *
+ * 1. Remove completely from the flow and screen readers.
+ * 2. Normalise `content`. The value of an undefined property is returned as
+ *    a `"none"` string (not an empty string) by the `window.getComputedStyle()`
+ *    method in Firefox.
+ */
+
+.TabEmbed::before {
+  display: none !important; /* 1 */
+  visibility: hidden !important; /* 1 */
+
+  content: "null"; /* 2 */
+}
+
+/**
  * 1. Remove any default styles that might be present when `ol` or `ul` are the
  *    root element.
  */

@@ -2,94 +2,154 @@
 <meta charset="utf-8">
 <meta name="viewport" content="initial-scale=1,width=device-width">
 <title>TabEmbed component tests</title>
-<link rel="stylesheet" href="flex-embed.css">
+<link rel="stylesheet" href="tab-embed.css">
 <style>
 html {
+  overflow-y: scroll;
   color: #333;
   font-size: 18px;
   line-height: 1.5em;
   font-family: sans-serif;
-  background-color: #f8f8f8;
+  background: #f9f9f9;
+}
+
+.Content {
+  padding: 1.5em;
+  text-align: justify;
 }
 
 
-
-#TabEmbed1 .TabEmbed-tablist {
-  margin: 0 -1px;
+.TabEmbed-tabpanel { background-color: #fff; }
+.TabEmbed-tablist {
+  position: relative;
+  margin: 0 -.25em;
+  text-align: center;
 }
-#TabEmbed1 .TabEmbed-tab {
+.TabEmbed-tablist::after {
+  position: absolute;
+  right: .25em;
+  bottom: 0;
+  left: .25em;
+  z-index: 2;
+  height: 1px;
+  content: "";
+}
+.TabEmbed-tab {
   display: inline-block;
-  margin: 0 1px 2px;
+  margin: 0 .25em;
 }
-#TabEmbed1 .TabEmbed-tab a {
+.TabEmbed-tab a {
+  position: relative;
+  z-index: 1;
   display: block;
+  border-width: 1px 1px 0;
+  border-style: solid;
   padding: .75em 1.5em;
-  color: #fff;
+  color: #becbd2;
   text-decoration: none;
-  background-color: #34495e;
-  box-shadow: 0 2px 0 rgba(255, 255, 255, 0);
-
-  transition-property: background-color, box-shadow;
-  transition-duration: .5s, .5s;
+  background: #fff;
 }
-#TabEmbed1 .TabEmbed-tab a:hover,
-#TabEmbed1 .TabEmbed-tab a:focus {
-  background-color: #2c3e50;
+.TabEmbed-tab a:hover,
+.TabEmbed-tab a:focus {
+  border-color: #becbd2;
+  color: #768e9d;
 }
-#TabEmbed1 .TabEmbed-tabpanel {
-  padding: .75em 1.5em;
-  background-color: #fff;
-}
-
-#TabEmbed1 .TabEmbed-tab[data-selected] a {
-  color: #34495e;
-  background-color: #fff;
-  box-shadow: 0 2px 0 rgba(255, 255, 255, 1);
+.TabEmbed-tab[data-selected] a {
+  z-index: 3;
+  box-shadow: inset 0 2px;
   cursor: default;
 }
 
 
 
-@-webkit-keyframes TabEmbed1InOut {
-      0% { opacity: 0; }
-    100% { opacity: 1; }
+#TabEmbed1 .TabEmbed-tablist::after {
+  background: #39c;
 }
-@keyframes TabEmbed1InOut {
-      0% { opacity: 0; }
-    100% { opacity: 1; }
+#TabEmbed1 .TabEmbed-tab[data-selected] a {
+  border-color: #39c;
+  color: #39c;
 }
-#TabEmbed1::before {
-  display: none;
-  visibility: hidden;
 
-  content: '{"animation":{"name":"TabEmbed1InOut"}}';
+@keyframes TabPanelInOut {
+    0% { opacity: 0; }
+  100% { opacity: 1; }
 }
-#TabEmbed1 .TabEmbed-tabpanel {
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
-  -webkit-animation-play-state: paused;
-          animation-play-state: paused;
+#TabEmbed2 .TabEmbed-tablist::after {
+  background: #396;
 }
-#TabEmbed1 .TabEmbed-tabpanel[data-animation] {
-  -webkit-animation-name: TabEmbed1InOut;
-          animation-name: TabEmbed1InOut;
+#TabEmbed2 .TabEmbed-tab[data-selected] a {
+  border-color: #396;
+  color: #396;
+}
+#TabEmbed2 .TabEmbed-tabpanel {
+  animation-duration: 1.5s;
+  animation-play-state: paused;
+}
+#TabEmbed2 .TabEmbed-tabpanel[data-animation] {
+  animation-name: TabPanelInOut;
+  animation-play-state: running;
+}
+#TabEmbed2 .TabEmbed-tabpanel[data-animation="in"] {
+  animation-direction: normal;
+}
+#TabEmbed2 .TabEmbed-tabpanel[data-animation="out"] {
+  animation-direction: reverse;
+}
 
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
+@keyframes TabPanelOut {
+  100% {
+      transform: scale(1.1);
+      opacity: 0;
+  }
 }
-#TabEmbed1 .TabEmbed-tabpanel[data-animation="in"]  {
-  -webkit-animation-direction: normal;
-          animation-direction: normal;
+@keyframes TabPanelIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(1.0);
+    opacity: 1;
+  }
 }
-#TabEmbed1 .TabEmbed-tabpanel[data-animation="out"] {
-  -webkit-animation-direction: reverse;
-          animation-direction: reverse;
+#TabEmbed3::before {
+  content: '{"animation":{"name":["TabPanelIn", "TabPanelOut"]}}';
+}
+#TabEmbed3 .TabEmbed-tabpanel {
+  background-color: transparent;
+}
+#TabEmbed3 .TabEmbed-tabpanelGroup {
+  overflow: hidden;
+  background-color: #fff;
+}
+#TabEmbed3 .TabEmbed-tablist::after {
+  background: #969;
+}
+#TabEmbed3 .TabEmbed-tab[data-selected] a {
+  border-color: #969;
+  color: #969;
+}
+#TabEmbed3 .TabEmbed-tabpanel {
+  animation-duration: .6s;
+  animation-timing-function: ease-in-out;
+  animation-play-state: paused;
+}
+#TabEmbed3 .TabEmbed-tabpanel[data-animation] {
+  animation-play-state: running;
+}
+#TabEmbed3 .TabEmbed-tabpanel[data-animation="in"]  {
+  animation-name: TabPanelIn;
+}
+#TabEmbed3 .TabEmbed-tabpanel[data-animation="out"] {
+  animation-name: TabPanelOut;
 }
 </style>
 
+<br>
+<br>
+
 <div class="TabEmbed"
      id="TabEmbed1"
-     data-js="active"
 >
     <ul class="TabEmbed-tablist">
         <li class="TabEmbed-tab"
@@ -109,29 +169,187 @@ html {
             <a href="#tab1.3">Tab&nbsp;#3</a>
         </li>
     </ul>
+
     <div class="TabEmbed-tabpanel"
          id="tab1.1"
     >
-    	<p>#1</p>
-        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+        <div class="Content">
+          <p>#1</p>
+            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+        </div>
     </div>
     <div class="TabEmbed-tabpanel"
          id="tab1.2"
          data-hidden
     >
-    	<p>#2</p>
-        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+        <div class="Content">
+          <p>#2</p>
+            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+        </div>
     </div>
     <div class="TabEmbed-tabpanel"
          id="tab1.3"
          data-hidden
     >
-    	<p>#3</p>
-        <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
+        <div class="Content">
+          <p>#3</p>
+            <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
+        </div>
     </div>
 </div>
 
-<script src="flex-embed.js"></script>
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+<div class="TabEmbed"
+     id="TabEmbed2"
+>
+    <ul class="TabEmbed-tablist">
+        <li class="TabEmbed-tab"
+            data-controls="tab2.1"
+            data-selected
+        >
+            <a href="#tab2.1">Tab&nbsp;#1</a>
+        </li
+       ><li class="TabEmbed-tab"
+            data-controls="tab2.2"
+        >
+            <a href="#tab2.2">Tab&nbsp;#2</a>
+        </li
+       ><li class="TabEmbed-tab"
+            data-controls="tab2.3"
+        >
+            <a href="#tab2.3">Tab&nbsp;#3</a>
+        </li>
+    </ul>
+
+    <div class="TabEmbed-tabpanel"
+         id="tab2.1"
+    >
+        <div class="Content">
+          <p>#1</p>
+            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+        </div>
+    </div>
+    <div class="TabEmbed-tabpanel"
+         id="tab2.2"
+         data-hidden
+    >
+        <div class="Content">
+          <p>#2</p>
+            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+        </div>
+    </div>
+    <div class="TabEmbed-tabpanel"
+         id="tab2.3"
+         data-hidden
+    >
+        <div class="Content">
+          <p>#3</p>
+            <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<hr>
+<br>
+<br>
+
+<div class="TabEmbed"
+     id="TabEmbed3"
+>
+    <ul class="TabEmbed-tablist">
+        <li class="TabEmbed-tab"
+            data-controls="tab3.1"
+            data-selected
+        >
+            <a href="#tab3.1">Tab&nbsp;#1</a>
+        </li
+       ><li class="TabEmbed-tab"
+            data-controls="tab3.2"
+        >
+            <a href="#tab3.2">Tab&nbsp;#2</a>
+        </li
+       ><li class="TabEmbed-tab"
+            data-controls="tab3.3"
+        >
+            <a href="#tab3.3">Tab&nbsp;#3</a>
+        </li>
+    </ul>
+
+    <div class="TabEmbed-tabpanelGroup">
+        <div class="TabEmbed-tabpanel"
+             id="tab3.1"
+        >
+            <div class="Content">
+              <p>#1</p>
+                <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+            </div>
+        </div>
+        <div class="TabEmbed-tabpanel"
+             id="tab3.2"
+             data-hidden
+        >
+            <div class="Content">
+              <p>#2</p>
+                <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+            </div>
+        </div>
+        <div class="TabEmbed-tabpanel"
+             id="tab3.3"
+             data-hidden
+        >
+            <div class="Content">
+              <p>#3</p>
+                <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+
+<script src="tab-embed.js"></script>
 <script>
-	var t = new TabEmbed('#TabEmbed1');
+    var te1 = new TabEmbed('#TabEmbed1');
+    te1.elements.forEach(function (element) {
+        element.tab.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            var name = this.getAttribute("data-controls")
+              , element = te1.namedElement(name);
+
+            te1.select(element);
+        });
+    });
+
+    var te2 = new TabEmbed('#TabEmbed2', {animation:{name:"TabPanelInOut"}});
+    te2.elements.forEach(function (element) {
+        element.tab.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            var name = this.getAttribute("data-controls")
+              , element = te2.namedElement(name);
+
+            te2.select(element);
+        });
+    });
+
+    var te3 = new TabEmbed('#TabEmbed3');
+    te3.elements.forEach(function (element) {
+        element.tab.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            var name = this.getAttribute("data-controls")
+              , element = te3.namedElement(name);
+
+            te3.select(element);
+        });
+    });
 </script>
