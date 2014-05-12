@@ -1,0 +1,58 @@
+/**
+ * Provide an handy solution to interact with the component using JSON.
+ * This selector (and its declaration block) basically doesn't do anything,
+ * except that you can check for it in Javascript.
+ *
+ * 1. Remove completely from the flow and screen readers.
+ * 2. Normalise `content`. The value of an undefined property is returned as
+ *    a `"none"` string (not an empty string) by the `window.getComputedStyle()`
+ *    method in Firefox.
+ */
+
+.TabEmbed::before {
+  display: none !important; /* 1 */
+  visibility: hidden !important; /* 1 */
+
+  content: "null"; /* 2 */
+}
+
+/**
+ * 1. Remove any default styles that might be present when `ol` or `ul` are the
+ *    root element.
+ */
+
+.TabEmbed-tablist {
+  list-style: none; /* 1 */
+  margin: 0; /* 1 */
+  padding: 0; /* 1 */
+}
+
+/**
+ * Make sure an element does not depend on vertical margins of its children
+ * (collapsing margins).
+ * Uses pseudo-elements (micro clearfix).
+ *
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of the
+ *    element.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.TabEmbed-tabpanel::before,
+.TabEmbed-tabpanel::after {
+  display: table; /* 2 */
+  content: " "; /* 1 */
+ }
+.TabEmbed-tabpanel::after {
+  clear: both;
+}
+
+/**
+ * UI states
+ */
+
+.TabEmbed-tabpanel[data-hidden] {
+  display: none !important;
+}
