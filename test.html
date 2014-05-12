@@ -329,7 +329,7 @@ html {
         });
     });
 
-    var te2 = new TabEmbed('#TabEmbed2', {animation:{name:"TabPanelInOut"}});
+    var te2 = new TabEmbed('#TabEmbed2', {animation:{name:"TabPanelInOut"}, hashchange: true});
     te2.elements.forEach(function (element) {
         element.tab.addEventListener("click", function (event) {
             event.preventDefault();
