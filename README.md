@@ -17,7 +17,7 @@ Default value is false.
 
 ### `hashchange`
 
-`Boolean` it indicates if the component takes into account the window's hash changes and should use the History object when the elements are changing.
+`Boolean` indicates if the component takes into account the window's hash changes and should use the History object when the elements are changing.
 
 Default value is false.
 
